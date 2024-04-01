@@ -18,6 +18,10 @@ Please follow [this](https://cmu-313.github.io/recitations/reci6-deployment/#tas
 tutorial to deploy translator service to Google cloud.
 
 
+> [!WARNING]
+> Set the Entrypoint to empty in the `Set up with Cloud Build` section.
+
+
 # Test your deployment
 
 Once you have deployed this service, you can access the following link `https://PATH_TO_YOUR_DEPLOYED_SERVICE/?content=这是一条中文消息` and you will see a JSON response
@@ -29,6 +33,13 @@ Once you have deployed this service, you can access the following link `https://
 }
 ```
 
+Run pytest locally
+
+
+```
+python3 -m pytest
+```
+
 # Integrate Translator Service With NodeBB
 
 Please merge the changes in `https://github.com/CMU-313/NodeBB-S24/tree/leo/draft-pr` to your NodeBB repository.
@@ -37,6 +48,12 @@ Please merge the changes in `https://github.com/CMU-313/NodeBB-S24/tree/leo/draf
 git remote add upstream https://github.com/CMU-313/NodeBB-S24.git
 git fetch upstream
 git cherry-pick f385a392cfe26812a86b2c87729d561e5c3c9cd4
+```
+
+After you merge the changes, you need to build NodeBB with new changes.
+
+```
+./nodebb build
 ```
 
 The changes will call translator API when a new post
@@ -64,6 +81,12 @@ Please replace `translate` method in `src/translator.py` with your LLM based
 implementation. The `translate` method takes a string `content` as input and
 returns a tuple `(bool, str)`. Indicating if `content` is in English and
 the translated content if `content` is not in English.
+
+Integrate LLM to a production service is slightly different from using it in a 
+notebook. You can follow [this](https://ai.google.dev/tutorials/python_quickstart)
+and [this](https://github.com/google/generative-ai-python) 
+to setup LLM API properly. 
+
 
 > [!WARNING]
 > Do not push your API key to your repository. You should use environment variables to store your API key.

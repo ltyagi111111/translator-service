@@ -20,7 +20,7 @@ tutorial to deploy translator service to Google cloud.
 
 # Test your deployment
 
-Once you have deployed this service, you can access the following link `https://PATH_TO_YOUR_DEPLOYED_SERVICE/?q=这是一条中文消息` and you will see a JSON response
+Once you have deployed this service, you can access the following link `https://PATH_TO_YOUR_DEPLOYED_SERVICE/?content=这是一条中文消息` and you will see a JSON response
 
 ```json
 {

@@ -23,8 +23,6 @@ jobs:
         with:
           credentials_json: '${{ secrets.SETUP_GCP }}'
 
-
-    steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
       uses: actions/setup-python@v3

@@ -34,7 +34,7 @@ def get_translation(post: str) -> str:
 context = "The following text is not in English and needs to be classified as non-English Text"
 def get_language(post: str) -> str:
     # ----------------- DO NOT MODIFY ------------------ #
-    model = aiplatform.GenerativeModel(model_name="gemini-pro")
+    model = genai.GenerativeModel(model_name="gemini-pro")
     parameters = {
         "temperature": 0.7,  # Temperature controls the degree of randomness in token selection.
         "max_output_tokens": 256,  # Token limit determines the maximum amount of text output.

@@ -17,10 +17,15 @@ jobs:
 
     runs-on: ubuntu-latest
 
-     - name: Authenticate with Google Cloud
-      uses: google-github-actions/auth@v0
-      with:
-        credentials_json: '${{ secrets.SETUP_GCP }}'
+    jobs:
+    build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: '${{ secrets.SETUP_GCP }}'
+
 
     steps:
     - uses: actions/checkout@v3

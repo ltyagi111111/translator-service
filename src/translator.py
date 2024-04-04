@@ -42,6 +42,7 @@ genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
         # Assert the response if applicable
         # self.assertEqual(response, 'expected_response')
 
+global chat_model
 chat_model = ChatModel.from_pretrained("chat-bison@001")
 context = "The following text is in a foreign language and needs to be translated into English:"
 

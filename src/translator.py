@@ -1,19 +1,18 @@
 import os
 from google.oauth2 import service_account
 from google.cloud import aiplatform
-from vertexai.language_models import ChatModel
-import google.generativeai as genai
-from google.cloud import translate_v2 as translate
+# from vertexai.language_models import ChatModel
+# import google.generativeai as genai
+# from google.cloud import translate_v2 as translate
 
-import os
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "/Users/larissatyagi/Desktop/translator-service/translator-service-418821-9352d29e6139.json"
 
-translate_client = translate.Client()
+# translate_client = translate.Client()
 
 
 aiplatform.init(project='translator-service-418821', location='us-central1')
 os.environ['GOOGLE_API_KEY'] = 'AIzaSyA5nw5uJld70nkV-0D2C1gmhqo5ql9OdRw'  # Replace with your actual API key
-genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
+# genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 
 # import unittest
 # from unittest.mock import patch
@@ -42,7 +41,7 @@ genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
         # Assert the response if applicable
         # self.assertEqual(response, 'expected_response')
 
-chat_model = ChatModel.from_pretrained("chat-bison@001")
+# chat_model = ChatModel.from_pretrained("chat-bison@001")
 context = "The following text is in a foreign language and needs to be translated into English:"
 
 

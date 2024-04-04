@@ -35,8 +35,7 @@ Once you have deployed this service, you can access the following link `https://
 
 Run pytest locally
 
-a;lskdf
-dasf
+
 
 ```
 python3 -m pytest

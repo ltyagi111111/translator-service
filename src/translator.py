@@ -42,7 +42,6 @@ genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
         # Assert the response if applicable
         # self.assertEqual(response, 'expected_response')
 
-global chat_model
 chat_model = ChatModel.from_pretrained("chat-bison@001")
 context = "The following text is in a foreign language and needs to be translated into English:"
 
@@ -95,7 +94,8 @@ def query_llm_robust(post: str) -> tuple[bool, str]:
     is_english, text = query_llm(post)  # Assuming query_llm is your model querying function.
   except Exception as e:
     print(f"An error occurred: {e}")
-    is_english, text = False, ""
+    errorMSG = f"An error occurred: {e}"
+    is_english, text = False, errorMSG
   finally:
     if not isinstance(is_english, bool) or not isinstance(text, str):
       is_english, text = False, ""

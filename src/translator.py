@@ -2,7 +2,7 @@ import os
 from google.oauth2 import service_account
 from google.cloud import aiplatform
 # from vertexai.language_models import ChatModel
-# import google.generativeai as genai
+import google.generativeai as genai
 # from google.cloud import translate_v2 as translate
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "/Users/larissatyagi/Desktop/translator-service/translator-service-418821-9352d29e6139.json"
@@ -44,18 +44,24 @@ os.environ['GOOGLE_API_KEY'] = 'AIzaSyA5nw5uJld70nkV-0D2C1gmhqo5ql9OdRw'  # Repl
 # chat_model = ChatModel.from_pretrained("chat-bison@001")
 context = "The following text is in a foreign language and needs to be translated into English:"
 
+   
 
 def get_translation(post: str) -> str:
     # ----------------- DO NOT MODIFY ------------------ #
-
+    model = aiplatform.GenerativeModel(model_name="gemini-pro")
     parameters = {
         "temperature": 0.7,  # Temperature controls the degree of randomness in token selection.
         "max_output_tokens": 256,  # Token limit determines the maximum amount of text output.
     }
 
-
-    chat = chat_model.start_chat(context=context)
-    response = chat.send_message(post, **parameters)
+    chat = model.start_chat(history=[
+    {
+        "role": "user",
+        "content": context
+    }
+    ])
+    chat = model.start_chat(history=[])
+    response = chat.send_message(post)
     return response.text
 
 
@@ -63,7 +69,7 @@ def get_translation(post: str) -> str:
 context = "The following text is not in English and needs to be classified as non-English Text"
 def get_language(post: str) -> str:
     # ----------------- DO NOT MODIFY ------------------ #
-
+    model = aiplatform.GenerativeModel(model_name="gemini-pro")
     parameters = {
         "temperature": 0.7,  # Temperature controls the degree of randomness in token selection.
         "max_output_tokens": 256,  # Token limit determines the maximum amount of text output.
@@ -71,9 +77,14 @@ def get_language(post: str) -> str:
 
     #mock the init part of the start too 
     #sending the authentication part should be a no op
-    
-    chat = chat_model.start_chat(context=context)
-    response = chat.send_message(post, **parameters)
+    chat = model.start_chat(history=[
+    {
+        "role": "user",
+        "content": context
+    }
+    ])
+    chat = model.start_chat(history=[])
+    response = chat.send_message(post)
     classification = "non-English" if "English" not in response.text else "English"
 
     return classification

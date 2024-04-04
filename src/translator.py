@@ -8,7 +8,7 @@ import google.generativeai as genai
 os.environ['GOOGLE_API_KEY'] = 'AIzaSyA5nw5uJld70nkV-0D2C1gmhqo5ql9OdRw'  # Replace with your actual API key
 genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 
-context = "The following text is in a foreign language and needs to be translated into English:"
+context = "The following text is in a foreign language and needs to be translated into English: "
 
 
 def get_translation(post: str) -> str:
@@ -19,14 +19,8 @@ def get_translation(post: str) -> str:
         "max_output_tokens": 256,  # Token limit determines the maximum amount of text output.
     }
 
-    chat = model.start_chat(history=[
-    {
-        "role": "user",
-        "content": context
-    }
-    ])
     chat = model.start_chat(history=[])
-    response = chat.send_message(post)
+    response = chat.send_message(context+post)
     return response.text
 
 
@@ -42,14 +36,8 @@ def get_language(post: str) -> str:
 
     #mock the init part of the start too 
     #sending the authentication part should be a no op
-    chat = model.start_chat(history=[
-    {
-        "role": "user",
-        "content": context
-    }
-    ])
     chat = model.start_chat(history=[])
-    response = chat.send_message(post)
+    response = chat.send_message(context+post)
     classification = "non-English" if "English" not in response.text else "English"
 
     return classification

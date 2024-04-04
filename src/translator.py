@@ -1,54 +1,19 @@
 import os
 from google.oauth2 import service_account
-from google.cloud import aiplatform
-# from vertexai.language_models import ChatModel
+# from google.cloud import aiplatform
 import google.generativeai as genai
-# from google.cloud import translate_v2 as translate
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "/Users/larissatyagi/Desktop/translator-service/translator-service-418821-9352d29e6139.json"
-
-# translate_client = translate.Client()
-
-
-aiplatform.init(project='translator-service-418821', location='us-central1')
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "/Users/larissatyagi/Desktop/translator-service/translator-service-418821-9352d29e6139.json"
+# aiplatform.init(project='translator-service-418821', location='us-central1')
 os.environ['GOOGLE_API_KEY'] = 'AIzaSyA5nw5uJld70nkV-0D2C1gmhqo5ql9OdRw'  # Replace with your actual API key
 genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 
-# import unittest
-# from unittest.mock import patch
-# from vertexai.preview.language_models import ChatModel, PreviewChatSession
-
-# class TestVertexAI(unittest.TestCase):
-
-    # @patch('vertexai.preview.language_models.ChatModel.from_pretrained')
-    # @patch('vertexai.preview.language_models.ChatModel.start_chat')
-    # @patch('vertexai.preview.language_models.PreviewChatSession.send_message')
-    # def test_chat_model(self, mock_send_message, mock_start_chat, mock_from_pretrained):
-        # Set up the return values for your mocks
-        # mock_instance = mock_from_pretrained.return_value
-        # mock_instance.start_chat.return_value = 'chat_session_id'
-        # mock_send_message.return_value = 'response_message'
-        
-        # Here you'd call the real code that should use these mocks
-        # For example:
-        # response = my_function_that_uses_chat_model()
-
-        # Now you can make assertions about how the mocks were used
-        # mock_from_pretrained.assert_called_once_with('model_name_or_path')
-        # mock_start_chat.assert_called_once()
-        # mock_send_message.assert_called_once_with('chat_session_id', 'message_to_send')
-        
-        # Assert the response if applicable
-        # self.assertEqual(response, 'expected_response')
-
-# chat_model = ChatModel.from_pretrained("chat-bison@001")
 context = "The following text is in a foreign language and needs to be translated into English:"
 
-   
 
 def get_translation(post: str) -> str:
     # ----------------- DO NOT MODIFY ------------------ #
-    model = aiplatform.GenerativeModel(model_name="gemini-pro")
+    model = genai.GenerativeModel(model_name="gemini-pro")
     parameters = {
         "temperature": 0.7,  # Temperature controls the degree of randomness in token selection.
         "max_output_tokens": 256,  # Token limit determines the maximum amount of text output.

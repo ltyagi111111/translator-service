@@ -15,9 +15,9 @@ aiplatform.init(project='translator-service-418821', location='us-central1')
 os.environ['GOOGLE_API_KEY'] = 'AIzaSyA5nw5uJld70nkV-0D2C1gmhqo5ql9OdRw'  # Replace with your actual API key
 genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 
-# import unittest
-# from unittest.mock import patch
-# from vertexai.preview.language_models import ChatModel, PreviewChatSession
+import unittest
+from unittest.mock import patch
+from vertexai.preview.language_models import ChatModel, PreviewChatSession
 
 # class TestVertexAI(unittest.TestCase):
 

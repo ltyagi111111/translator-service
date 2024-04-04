@@ -3,10 +3,12 @@ from google.oauth2 import service_account
 from google.cloud import aiplatform
 from vertexai.language_models import ChatModel
 import google.generativeai as genai
+from google.cloud import translate_v2 as translate
 
 import os
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "/Users/larissatyagi/Desktop/translator-service/translator-service-418821-9352d29e6139.json"
 
+translate_client = translate.Client()
 
 
 aiplatform.init(project='translator-service-418821', location='us-central1')
@@ -14,23 +16,29 @@ os.environ['GOOGLE_API_KEY'] = 'AIzaSyA5nw5uJld70nkV-0D2C1gmhqo5ql9OdRw'  # Repl
 genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 
 
-
-
-
 chat_model = ChatModel.from_pretrained("chat-bison@001")
 context = "The following text is in a foreign language and needs to be translated into English:"
+
 def get_translation(post: str) -> str:
-    # ----------------- DO NOT MODIFY ------------------ #
-
-    parameters = {
-        "temperature": 0.7,  # Temperature controls the degree of randomness in token selection.
-        "max_output_tokens": 256,  # Token limit determines the maximum amount of text output.
-    }
+    # Use Google Cloud Translation API to translate the text
+    result = translate_client.translate(post, target_language='en')
+    return result['translatedText']
 
 
-    chat = chat_model.start_chat(context=context)
-    response = chat.send_message(post, **parameters)
-    return response.text
+# def get_translation(post: str) -> str:
+#     # ----------------- DO NOT MODIFY ------------------ #
+
+#     parameters = {
+#         "temperature": 0.7,  # Temperature controls the degree of randomness in token selection.
+#         "max_output_tokens": 256,  # Token limit determines the maximum amount of text output.
+#     }
+
+
+#     chat = chat_model.start_chat(context=context)
+#     response = chat.send_message(post, **parameters)
+#     return response.text
+
+
 
 context = "The following text is not in English and needs to be classified as non-English Text"
 def get_language(post: str) -> str:

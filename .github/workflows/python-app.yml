@@ -17,12 +17,14 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Authenticate with Google Cloud
-        uses: google-github-actions/auth@v0
-        with:
-          credentials_json: '${{ secrets.SETUP_GCP }}'
+    # steps:
+    #   - name: Authenticate with Google Cloud
+    #     uses: google-github-actions/auth@v0
+    #     with:
+    #       credentials_json: '${{ secrets.SETUP_GCP }}'
 
+
+    # steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
       uses: actions/setup-python@v3

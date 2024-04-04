@@ -19,8 +19,7 @@ def get_translation(post: str) -> str:
         "max_output_tokens": 256,  # Token limit determines the maximum amount of text output.
     }
 
-    chat = model.start_chat(history=[])
-    response = chat.send_message(context+post)
+    response = model.generate_content(context+post)
     return response.text
 
 
@@ -36,8 +35,7 @@ def get_language(post: str) -> str:
 
     #mock the init part of the start too 
     #sending the authentication part should be a no op
-    chat = model.start_chat(history=[])
-    response = chat.send_message(context+post)
+    response = model.generate_content(context+post)
     classification = "non-English" if "English" not in response.text else "English"
 
     return classification

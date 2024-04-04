@@ -59,7 +59,7 @@ def query_llm_robust(post: str) -> tuple[bool, str]:
     is_english, text = False, errorMSG
   finally:
     if not isinstance(is_english, bool) or not isinstance(text, str):
-      is_english, text = False, ""
+      is_english, text = False, f"not an instance, is_english is {is_english} and text is {text}"
 
   return is_english, text
 

@@ -40,24 +40,24 @@ def get_language(post: str) -> bool:
     response = model.generate_content(context+post)
     # classification = "non-English" if "English" not in response.text else "English"
     classification = ("english" in response.text) or ("English" in response.text)
-    # return response.text#debug 
+    return response.text#debug 
     return classification
 
 def query_llm(post: str) -> tuple[bool, str]:
-    is_english = get_language(post)
+    language = get_language(post)
 
-    if is_english!='English':
+    if language!='English':
         translated_post = get_translation(post)
     else:
         # translated_post = post
-        translated_post = get_translation(post) #debug
-
-    return is_english, translated_post
+        translated_post = post
+    is_English = ("english" in language) or ("English" in language)
+    return is_English, translated_post
 
 def query_llm_robust(post: str) -> tuple[bool, str]:
   try:
-    lang, text = query_llm(post)  # Assuming query_llm is your model querying function.
-    is_english = (lang == 'English')
+    is_english, text = query_llm(post)  # Assuming query_llm is your model querying function.
+    
   except Exception as e:
     print(f"An error occurred: {e}")
     errorMSG = f"An error occurred: {e}"
@@ -66,7 +66,7 @@ def query_llm_robust(post: str) -> tuple[bool, str]:
     if not isinstance(is_english, bool) or not isinstance(text, str):
       is_english, text = False, f"not an instance, is_english is {is_english} and text is {text}"
 
-  return is_english, (f"lang: {lang}, text: {text}")
+  return is_english, text
 
 
 def translate_content(content: str) -> tuple[bool, str]:

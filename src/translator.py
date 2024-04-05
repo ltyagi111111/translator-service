@@ -8,7 +8,7 @@ import google.generativeai as genai
 os.environ['GOOGLE_API_KEY'] = 'AIzaSyA5nw5uJld70nkV-0D2C1gmhqo5ql9OdRw'  # Replace with your actual API key
 genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 
-context = "The following text is in a foreign language and needs to be translated into English: "
+context = "The following text is in a foreign language and needs to be translated into English, please respond only in english: "
 
 
 def get_translation(post: str) -> str:
@@ -63,7 +63,7 @@ def query_llm_robust(post: str) -> tuple[bool, str]:
     if not isinstance(is_english, bool) or not isinstance(text, str):
       is_english, text = False, f"not an instance, is_english is {is_english} and text is {text}"
 
-  return is_english, ("lang: {lang}, "+text)
+  return is_english, (f"lang: {lang}, text: {text}")
 
 
 def translate_content(content: str) -> tuple[bool, str]:

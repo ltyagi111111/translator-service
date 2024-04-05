@@ -48,7 +48,7 @@ def query_llm(post: str) -> tuple[bool, str]:
     else:
         translated_post = post
 
-    return is_english, translated_post
+    return (is_english=='English'), translated_post
 
 def query_llm_robust(post: str) -> tuple[bool, str]:
   try:

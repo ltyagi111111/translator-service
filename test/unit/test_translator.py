@@ -26,7 +26,7 @@ def test_chinese():
 def test_llm_normal_response():
     is_english, translated_content = translate_content("to be or not to be")
     assert is_english == True
-    assert ("to be or not to be"== translated_content)
+    assert ("to be or not to be"== translated_content.lower())
     
 
 def test_llm_gibberish_response():

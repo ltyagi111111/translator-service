@@ -8,11 +8,14 @@ import google.generativeai as genai
 os.environ['GOOGLE_API_KEY'] = 'AIzaSyA5nw5uJld70nkV-0D2C1gmhqo5ql9OdRw'  # Replace with your actual API key
 genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 
-context = "The following text is in a foreign language and needs to be translated into English, please respond only in english: "
+context = "The following text is in a foreign language and needs to be translated into English, please respond only in english. Prompt = "
 
 
 def get_translation(post: str) -> str:
     # ----------------- DO NOT MODIFY ------------------ #
+    context = ("Context = The following text is in a foreign language and needs to be translated into English"
+                +"please respond only in english. "
+                + f"Prompt: {post}")
     model = genai.GenerativeModel(model_name="gemini-pro")
     parameters = {
         "temperature": 0.7,  # Temperature controls the degree of randomness in token selection.
@@ -37,7 +40,7 @@ def get_language(post: str) -> str:
     #sending the authentication part should be a no op
     response = model.generate_content(context+post)
     classification = "non-English" if "English" not in response.text else "English"
-
+    return response.text#debug 
     return classification
 
 def query_llm(post: str) -> tuple[bool, str]:

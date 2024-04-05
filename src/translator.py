@@ -3,8 +3,7 @@ from google.oauth2 import service_account
 # from google.cloud import aiplatform
 import google.generativeai as genai
 
-# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "/Users/larissatyagi/Desktop/translator-service/translator-service-418821-9352d29e6139.json"
-# aiplatform.init(project='translator-service-418821', location='us-central1')
+
 os.environ['GOOGLE_API_KEY'] = 'AIzaSyA5nw5uJld70nkV-0D2C1gmhqo5ql9OdRw'  # Replace with your actual API key
 genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 
@@ -17,10 +16,6 @@ def get_translation(post: str) -> str:
                 +"please translate this to English. "
                 + f"Prompt: {post}")
     model = genai.GenerativeModel(model_name="gemini-pro")
-    parameters = {
-        "temperature": 0.7,  # Temperature controls the degree of randomness in token selection.
-        "max_output_tokens": 256,  # Token limit determines the maximum amount of text output.
-    }
 
     response = model.generate_content(context)
     return response.text
@@ -30,10 +25,6 @@ def get_translation(post: str) -> str:
 
 def get_language(post: str) -> str:
     model = genai.GenerativeModel(model_name="gemini-pro")
-    parameters = {
-        "temperature": 0.7,  # Temperature controls the degree of randomness in token selection.
-        "max_output_tokens": 256,  # Token limit determines the maximum amount of text output.
-    }
 
     context = f"Context = 'I want to know what language the prompt is', prompt = '{post}'"
     response = model.generate_content(context+post)

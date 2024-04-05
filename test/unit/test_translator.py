@@ -1,4 +1,4 @@
-# from src.translator import translate_content #,query_llm_robust
+from src.translator import translate_content #,query_llm_robust
 # from mock import patch
 # from vertexai.language_models import ChatModel, InputOutputTextPair
 # from ../src/translator import query_llm_robust
@@ -16,15 +16,20 @@
 #   assert response == "I don't understand your request"
 #   assert response is not None and response != ""
 
+### UNIT TESTING ###
+def test_chinese():
+    is_english, translated_content = translate_content("这是一条中文消息")
+    assert is_english == False
+    assert ("chinese" in translated_content or "Chinese" in translate_content)
 
-# def test_chinese():
-#     is_english, translated_content = translate_content("这是一条中文消息")
-#     assert is_english == False
-#     assert translated_content == "This is a Chinese message"
 
+def test_llm_normal_response():
+    is_english, translated_content = translate_content("to be or not to be")
+    assert is_english == True
+    assert ("to be or not to be"== translate_content)
+    
 
-# def test_llm_normal_response():
-#     pass
-
-# def test_llm_gibberish_response():
-#     pass
+def test_llm_gibberish_response():
+    is_english, translated_content = translate_content("jfdjshghui bjfhsdufh")
+    assert ((is_english == False) or translated_content == "jfdjshghui bjfhsdufh")
+    

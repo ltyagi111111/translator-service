@@ -46,13 +46,15 @@ def query_llm(post: str) -> tuple[bool, str]:
     if is_english!='English':
         translated_post = get_translation(post)
     else:
-        translated_post = post
+        # translated_post = post
+        translated_post = get_translation(post) #debug
 
-    return (is_english=='English'), translated_post
+    return is_english, translated_post
 
 def query_llm_robust(post: str) -> tuple[bool, str]:
   try:
-    is_english, text = query_llm(post)  # Assuming query_llm is your model querying function.
+    lang, text = query_llm(post)  # Assuming query_llm is your model querying function.
+    is_english = (lang == 'English')
   except Exception as e:
     print(f"An error occurred: {e}")
     errorMSG = f"An error occurred: {e}"
@@ -61,7 +63,7 @@ def query_llm_robust(post: str) -> tuple[bool, str]:
     if not isinstance(is_english, bool) or not isinstance(text, str):
       is_english, text = False, f"not an instance, is_english is {is_english} and text is {text}"
 
-  return is_english, text
+  return is_english, ("lang: {lang}, "+text)
 
 
 def translate_content(content: str) -> tuple[bool, str]:

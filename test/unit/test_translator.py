@@ -20,16 +20,16 @@ from src.translator import translate_content #,query_llm_robust
 def test_chinese():
     is_english, translated_content = translate_content("这是一条中文消息")
     assert is_english == False
-    assert ("chinese" in translated_content or "Chinese" in translate_content)
+    assert ("chinese" in translated_content or "Chinese" in translated_content)
 
 
 def test_llm_normal_response():
     is_english, translated_content = translate_content("to be or not to be")
     assert is_english == True
-    assert ("to be or not to be"== translate_content)
+    assert ("to be or not to be"== translated_content)
     
 
 def test_llm_gibberish_response():
     is_english, translated_content = translate_content("jfdjshghui bjfhsdufh")
-    assert ((is_english == False) or translated_content == "jfdjshghui bjfhsdufh")
+    assert ((is_english == False) or (translated_content == "jfdjshghui bjfhsdufh"))
     

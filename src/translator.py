@@ -14,7 +14,7 @@ context = "The following text is in a foreign language and needs to be translate
 def get_translation(post: str) -> str:
     # ----------------- DO NOT MODIFY ------------------ #
     context = ("Context = The following text is in a foreign language and needs to be translated into English"
-                +"please respond only in english. "
+                +"please translate this to English. "
                 + f"Prompt: {post}")
     model = genai.GenerativeModel(model_name="gemini-pro")
     parameters = {
@@ -22,12 +22,12 @@ def get_translation(post: str) -> str:
         "max_output_tokens": 256,  # Token limit determines the maximum amount of text output.
     }
 
-    response = model.generate_content(context+post)
+    response = model.generate_content(context)
     return response.text
 
 
 
-context = "The following text is not in English and needs to be classified as non-English Text"
+
 def get_language(post: str) -> str:
     # ----------------- DO NOT MODIFY ------------------ #
     model = genai.GenerativeModel(model_name="gemini-pro")
@@ -36,8 +36,7 @@ def get_language(post: str) -> str:
         "max_output_tokens": 256,  # Token limit determines the maximum amount of text output.
     }
 
-    #mock the init part of the start too 
-    #sending the authentication part should be a no op
+    context = f"Context = 'I want to know what language the prompt is', prompt = '{post}'"
     response = model.generate_content(context+post)
     classification = "non-English" if "English" not in response.text else "English"
     return response.text#debug 

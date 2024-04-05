@@ -28,7 +28,7 @@ def get_translation(post: str) -> str:
 
 
 
-def get_language(post: str) -> str:
+def get_language(post: str) -> bool:
     # ----------------- DO NOT MODIFY ------------------ #
     model = genai.GenerativeModel(model_name="gemini-pro")
     parameters = {
@@ -38,8 +38,9 @@ def get_language(post: str) -> str:
 
     context = f"Context = 'I want to know what language the prompt is', prompt = '{post}'"
     response = model.generate_content(context+post)
-    classification = "non-English" if "English" not in response.text else "English"
-    return response.text#debug 
+    # classification = "non-English" if "English" not in response.text else "English"
+    classification = ("english" in response.text) or ("English" in response.text)
+    # return response.text#debug 
     return classification
 
 def query_llm(post: str) -> tuple[bool, str]:
